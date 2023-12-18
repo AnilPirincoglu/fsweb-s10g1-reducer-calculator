@@ -1,4 +1,4 @@
-import { ADD_ONE, APPLY_NUMBER, CHANGE_OPERATION } from './../actions';
+import { ADD_ONE, APPLY_NUMBER, CHANGE_OPERATION, CLEAR_DISPLAY, M_PLUS, MR, MC } from './../actions';
 
 export const initialState = {
   total: 100,
@@ -38,6 +38,30 @@ const reducer = (state, action) => {
         ...state,
         operation: action.payload
       });
+
+    case (CLEAR_DISPLAY):
+      return ({
+        ...state,
+        total: 0
+      });
+
+    case (M_PLUS):
+      return ({
+        ...state,
+        memory: state.total
+      });
+
+    case (MR):
+      return ({
+        ...state,
+        total: calculateResult(state.total, state.memory, state.operation)
+      });
+
+    case (MC):
+      return ({
+        ...state,
+        memory: 0
+      })
 
     default:
       return state;
